@@ -7,24 +7,46 @@ atingir um número mínimo de likes (por exemplo, 10), a mensagem de
 "Postagem Popular" deve aparecer.
  */
 
-const contador = document.getElementById('contador')
-const status = document.getElementById('status')
+const h1 = document.createElement('h1')
+h1.textContent = 'Contador de likes'
+document.body.appendChild(h1)  //inclui na DOM
 
-let numeroCurtidas = 0
-let minimoCurtidas = 10
+const container = document.createElement('div')
+container.setAttribute('class', 'container')
+document.body.appendChild(container)
 
-function curtir() {
-    numeroCurtidas++
-    contador.textContent = numeroCurtidas
+const h2 = document.createElement('h2')
+h2.textContent = 'Postagem'
+container.appendChild(h2)
 
-    if (numeroCurtidas >= minimoCurtidas) {
+const contador = document.createElement('p')
+contador.setAttribute('id', 'contador')
+contador.textContent = '0'
+container.appendChild(contador)
+
+const status = document.createElement('p')
+status.classList.add('aguardando')
+status.textContent = 'Seja o primeiro a curtir'
+container.appendChild(status)
+
+const button = document.createElement('button')
+button.textContent =  'Curtir'
+container.appendChild(button)
+
+let numeroLikes = 0
+const minimoLikes = 10
+
+function incrementarLikes() {
+    numeroLikes++
+    contador.textContent = numeroLikes
+
+    if (numeroLikes >= minimoLikes) {
         status.textContent = 'Postagem Popular'
-        status.className = 'popular'
-    } else if (numeroCurtidas === 1) {
-        status.textContent = 'Pessoa curtiu'
-        status.className = 'umaPessoa'
+        status.classList.replace('aguardando', 'popular')
     } else {
-        status.textContent = 'Pessoas curtiram'
-        status.className = 'aguardando...'
+        status.textContent = 'Seja o primeiro a curtir'
+        status.classList.replace('popular', 'aguardando')
     }
 }
+
+button.onclick = incrementarLikes
